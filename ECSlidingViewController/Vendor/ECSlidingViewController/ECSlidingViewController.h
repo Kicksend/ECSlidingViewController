@@ -216,6 +216,9 @@ typedef enum {
 /** Returns true if the top view is completely off the screen */
 - (BOOL)topViewIsOffScreen;
 
+/** Move top view back to the center with or without animations. */
+- (void)resetTopViewAnimated:(BOOL)animated;
+
 @end
 
 /** UIViewController extension */

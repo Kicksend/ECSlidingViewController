@@ -362,12 +362,27 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
   }];
 }
 
+- (void)resetTopViewAnimated:(BOOL)animated
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:ECSlidingViewTopWillReset object:self userInfo:nil];
+    });
+
+    if (animated)
+        return [self resetTopViewWithAnimations:nil onComplete:nil];
+
+    [self topViewHorizontalCenterWillChange:self.resettedCenter];
+    [self updateTopViewHorizontalCenter:self.resettedCenter];
+    [self topViewHorizontalCenterDidChange:self.resettedCenter];
+}
+
 - (void)resetTopView
 {
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [[NSNotificationCenter defaultCenter] postNotificationName:ECSlidingViewTopWillReset object:self userInfo:nil];
-  });
-  [self resetTopViewWithAnimations:nil onComplete:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:ECSlidingViewTopWillReset object:self userInfo:nil];
+    });
+
+    [self resetTopViewWithAnimations:nil onComplete:nil];
 }
 
 - (void)resetTopViewWithAnimations:(void(^)())animations onComplete:(void(^)())complete
