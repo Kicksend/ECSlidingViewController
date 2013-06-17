@@ -190,7 +190,8 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 {
   [super viewWillAppear:animated];
   self.topView.layer.shadowOffset = CGSizeZero;
-  self.topView.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.layer.bounds].CGPath;
+  if (self.topView.layer.shadowPath == nil)
+    self.topView.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.layer.bounds].CGPath;
   [self adjustLayout];
 }
 
